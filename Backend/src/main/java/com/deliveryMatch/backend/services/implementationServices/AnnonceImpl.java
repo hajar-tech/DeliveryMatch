@@ -30,7 +30,7 @@ public class AnnonceImpl implements AnnonceService {
     public AnnonceTrajetDto creerAnnonce(AnnonceTrajetDto annonceTrajetDto) {
 
        //récupération du conducteur
-        Conducteur conducteur = conducteurRepository.findById(annonceTrajetDto.getConducteurId())
+        Conducteur conducteur = conducteurRepository.findById(annonceTrajetDto.conducteurId())
                 .orElseThrow(()-> new RuntimeException("Conducteur introuvable"));
 
         //pour mapper dto vers entité
