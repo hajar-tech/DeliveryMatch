@@ -85,16 +85,45 @@ public class AnnonceImpl implements AnnonceService {
 
     @Override
     public AnnonceTrajetDto getAnnonceTrajetById(Long id) {
-        return null;
+        AnnonceTrajet annonceTrajet = annonceRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("annonce introuvable !! "));
+
+        return new AnnonceTrajetDto(
+                annonceTrajet.getConducteur().getId(),
+                annonceTrajet.getLieuDepart(),
+                annonceTrajet.getEtapeIntermediaire(),
+                annonceTrajet.getDestinationFinale(),
+                annonceTrajet.getTypeMarchandise(),
+                annonceTrajet.getDimensionMaximales(),
+                annonceTrajet.getCapaciteDisponible(),
+                annonceTrajet.getDateDepart(),
+                annonceTrajet.getDateAnance()
+
+        );
     }
 
     @Override
     public List<AnnonceTrajetDto> getAllAnnonceTrajet() {
-        return List.of();
+        return annonceRepository.findAll().stream()
+                .map(annonceTrajet -> new AnnonceTrajetDto(
+                    annonceTrajet.getConducteur().getId(),
+                    annonceTrajet.getLieuDepart(),
+                    annonceTrajet.getEtapeIntermediaire(),
+                    annonceTrajet.getDestinationFinale(),
+                    annonceTrajet.getTypeMarchandise(),
+                    annonceTrajet.getDimensionMaximales(),
+                    annonceTrajet.getCapaciteDisponible(),
+                    annonceTrajet.getDateDepart(),
+                    annonceTrajet.getDateAnance()
+                )).toList();
     }
 
     @Override
     public void deleteAnnonceTrajet(Long id) {
+       if(!annonceRepository.existsById(id)) {
+           throw new  RuntimeException("Annonce introuvable !! ");
+       }
+       annonceRepository.deleteById(id);
 
     }
 

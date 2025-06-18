@@ -6,6 +6,8 @@ import com.deliveryMatch.backend.services.implementationServices.AnnonceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/annonces")
 public class AnnonceController {
@@ -25,5 +27,22 @@ public class AnnonceController {
     public ResponseEntity<AnnonceTrajetDto> modifierAnnonceTrajet (@PathVariable Long id, @RequestBody AnnonceTrajetDto annonceDto) {
         AnnonceTrajetDto annonceTrajetDto = annonceService.modifierAnnonceTrajet(annonceDto , id);
         return ResponseEntity.ok(annonceTrajetDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AnnonceTrajetDto> getAnnonceTrajet (@PathVariable Long id) {
+        return ResponseEntity.ok(annonceService.getAnnonceTrajetById(id)) ;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<AnnonceTrajetDto>> getAllAnnonceTrajet() {
+        return ResponseEntity.ok(annonceService.getAllAnnonceTrajet());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>  supprimerAnnonceTrajet (@PathVariable Long id) {
+        annonceService.deleteAnnonceTrajet(id) ;
+              return ResponseEntity.noContent().build();
+
     }
 }
