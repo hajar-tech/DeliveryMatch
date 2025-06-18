@@ -4,10 +4,10 @@ import com.deliveryMatch.backend.enums.TypeColis;
 
 public record ColisDto (
 
-            Double poidsColis,
-            Double longueurColis,
-            Double hauteur,
-            TypeColis type
+        Double poidsColis,
+        Double longueurColis,
+        Double hauteur,
+        String type
     ) {}
 
 
