@@ -14,6 +14,10 @@ public class AnnonceTrajet {
     private Long id;
     private String lieuDepart;
     private String destinationFinale;
+    private String typeMarchandise;
+    private String  dimensionMaximales;
+    private Double capaciteDisponible;
+    //private boolean archivee = false; // utilisé pour l’historique
     @ElementCollection
     private List<String> etapeIntermediaire;
 
@@ -36,6 +40,30 @@ public class AnnonceTrajet {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTypeMarchandise() {
+        return typeMarchandise;
+    }
+
+    public void setTypeMarchandise(String typeMarchandise) {
+        this.typeMarchandise = typeMarchandise;
+    }
+
+    public String getDimensionMaximales() {
+        return dimensionMaximales;
+    }
+
+    public void setDimensionMaximales(String dimensionMaximales) {
+        this.dimensionMaximales = dimensionMaximales;
+    }
+
+    public Double getCapaciteDisponible() {
+        return capaciteDisponible;
+    }
+
+    public void setCapaciteDisponible(Double capaciteDisponible) {
+        this.capaciteDisponible = capaciteDisponible;
     }
 
     public String getLieuDepart() {

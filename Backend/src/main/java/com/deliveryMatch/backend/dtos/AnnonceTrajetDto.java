@@ -6,10 +6,14 @@ import java.util.List;
 
 public record AnnonceTrajetDto (Long conducteurId,
                                 String lieuDepart,
-                                String destinationFinale,
                                 List<String> etapeIntermediaire,
+                                String destinationFinale,
+                                 String typeMarchandise,
+                                String  dimensionMaximales ,
+                                Double capaciteDisponible,
                                 Date dateDepart,
-                                Date dateAnance){}
+                                 Date dateAnance
+                                ){}
 
 
 

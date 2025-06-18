@@ -4,10 +4,7 @@ import com.deliveryMatch.backend.dtos.UtilisateurDto;
 import com.deliveryMatch.backend.services.InterfaceServices.UserService;
 import com.deliveryMatch.backend.services.implementationServices.Userimpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/utilisateurs")
@@ -23,5 +20,10 @@ public class UserController {
     @PostMapping("/creer")
     public UtilisateurDto creerUtilisateur(@RequestBody UtilisateurDto utilisateurDto) {
         return userService.creerUtilisateur(utilisateurDto);
+    }
+
+    @PutMapping("/{id}")
+    public UtilisateurDto modifierUtilisateur (@PathVariable Long id, @RequestBody UtilisateurDto utilisateurDto) {
+        return userService.modifierUtilisateur(id, utilisateurDto);
     }
 }

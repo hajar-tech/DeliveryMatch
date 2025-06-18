@@ -20,7 +20,7 @@ public class AnnonceController {
 
     @PostMapping("/creer")
     public ResponseEntity <AnnonceTrajetDto> creerAnnonce (@RequestBody AnnonceTrajetDto annonceDto) {
-       AnnonceTrajetDto annonceTrajet=  annonceService.creerAnnonce(annonceDto);
+       AnnonceTrajetDto annonceTrajet =  annonceService.creerAnnonce(annonceDto);
          return ResponseEntity.ok(annonceTrajet);
     }
 }

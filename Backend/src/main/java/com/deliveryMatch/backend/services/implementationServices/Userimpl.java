@@ -25,17 +25,31 @@ public class Userimpl implements UserService {
 
     @Override
     public UtilisateurDto creerUtilisateur(UtilisateurDto utilisateurDto) {
-        Utilisateur utilisateur = new Utilisateur();
-        switch (utilisateurDto.role()){
-            case "Admin" -> new Admin();
-            case "Expediteur" -> new Expediteur();
-            case "Conducteur" -> new Conducteur();
-            default -> throw new RuntimeException("Rôle invalide");
+        Utilisateur utilisateur;
+
+        switch (utilisateurDto.role()) {
+            case "Conducteur" -> utilisateur = new Conducteur();
+            case "Expediteur" -> utilisateur = new Expediteur();
+            case "Admin" -> utilisateur = new Admin();
+            default -> throw new IllegalArgumentException("Rôle non valide : " + utilisateurDto.role());
         }
+
         utilisateur.setNomComplet(utilisateurDto.nom());
         utilisateur.setEmail(utilisateurDto.email());
         utilisateur.setPassword(utilisateurDto.password());
 
         return utilisateurMapper.utilisateurToDto(userRepository.save(utilisateur));
+    }
+
+    @Override
+    public UtilisateurDto modifierUtilisateur(Long id, UtilisateurDto utilisateurDto) {
+        Utilisateur utilisateur = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("La utilisateur n'existe pas"));
+        System.out.println("Modifier utilisateur ID: " + id);
+        utilisateur.setNomComplet(utilisateurDto.nom());
+        utilisateur.setEmail(utilisateurDto.email());
+        utilisateur.setPassword(utilisateurDto.password());
+
+        return utilisateurMapper.utilisateurToDto(userRepository.save(utilisateur)) ;
     }
 }
