@@ -1,5 +1,6 @@
 package com.deliveryMatch.backend.services.implementationServices;
 
+import com.deliveryMatch.backend.dtos.ColisDto;
 import com.deliveryMatch.backend.dtos.DemandeTransportDto;
 import com.deliveryMatch.backend.enums.StatusDemande;
 import com.deliveryMatch.backend.enums.TypeColis;
@@ -71,5 +72,27 @@ public class DemandeImpl implements DemandeService {
         );
 
 
+    }
+
+    @Override
+    public List<DemandeTransportDto> afficherDemandesByExpediteur(Long idExpediteur) {
+       Expediteur expediteur = (Expediteur) expediteurRepo.findById(idExpediteur)
+               .orElseThrow(() -> new RuntimeException("Expediteur introuvable"));
+       List<DemandeTransport> demandeTransports = demandeRepo.getAllByExpediteur(expediteur);
+
+       return demandeTransports.stream().map(demandeTransport -> new DemandeTransportDto(
+            demandeTransport.getId(),
+            demandeTransport.getLieuDepart(),
+            demandeTransport.getDestinationFinale(),
+            demandeTransport.getStatus().toString(),
+            expediteur.getId(),
+            demandeTransport.getAnnonce().getId(),
+            demandeTransport.getColis().stream().map(colis -> new ColisDto(
+                 colis.getPoidsColis(),
+                 colis.getLongueurColis(),
+                 colis.getHauteur(),
+                 colis.getType().toString()
+            )) .toList()
+       ) ).toList();
     }
 }
