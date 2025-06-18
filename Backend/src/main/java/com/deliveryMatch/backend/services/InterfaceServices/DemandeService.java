@@ -10,5 +10,6 @@ public interface DemandeService {
     DemandeTransportDto  creerDemande(DemandeTransportDto dto);
 
     List<DemandeTransportDto> afficherDemandesByExpediteur(Long idExpediteur);
+    List<DemandeTransportDto> afficherDemandesParConducteur(Long idConducteur);
 
 }

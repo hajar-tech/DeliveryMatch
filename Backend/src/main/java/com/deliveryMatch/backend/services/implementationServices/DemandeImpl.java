@@ -95,4 +95,34 @@ public class DemandeImpl implements DemandeService {
             )) .toList()
        ) ).toList();
     }
+
+    @Override
+    public List<DemandeTransportDto> afficherDemandesParConducteur(Long idConducteur) {
+
+        Conducteur conducteur = (Conducteur) expediteurRepo.findById(idConducteur)
+                .orElseThrow(()-> new RuntimeException("Conducteur introuvable"));
+
+        List<AnnonceTrajet> annonceTrajets = annonceRepo.findByConducteur(conducteur);
+
+        List<DemandeTransport> demandeTransports = annonceTrajets.stream()
+                .flatMap(a -> a.getDemandes().stream())
+                .toList();
+
+        return demandeTransports.stream().map(demandeTransport -> new DemandeTransportDto(
+                demandeTransport.getId(),
+                demandeTransport.getLieuDepart(),
+                demandeTransport.getDestinationFinale(),
+                demandeTransport.getStatus().toString(),
+                demandeTransport.getExpediteur().getId(),
+                demandeTransport.getAnnonce().getId(),
+                demandeTransport.getColis().stream().map(colis -> new ColisDto(
+                        colis.getPoidsColis(),
+                        colis.getLongueurColis(),
+                        colis.getHauteur(),
+                        colis.getType().toString()
+                )).toList()
+
+        )).toList();
+
+    }
 }

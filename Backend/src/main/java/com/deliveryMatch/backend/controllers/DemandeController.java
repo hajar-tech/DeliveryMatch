@@ -27,4 +27,10 @@ public class DemandeController {
     public ResponseEntity<List<DemandeTransportDto>>afficherDemandesTransportByExpedieur(@PathVariable Long id) {
         return ResponseEntity.ok(demandeService.afficherDemandesByExpediteur(id));
     }
+
+    //afficher la liste des demande de transport associer à un trajet de conducteur
+    @GetMapping("/conducteur/{id}")
+    public ResponseEntity<List<DemandeTransportDto>> afficherDemandesByConducteur(@PathVariable Long id) {
+        return ResponseEntity.ok(demandeService.afficherDemandesParConducteur(id));
+    }
 }
