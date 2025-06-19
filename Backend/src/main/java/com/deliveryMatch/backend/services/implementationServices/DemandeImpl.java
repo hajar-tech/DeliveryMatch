@@ -57,6 +57,7 @@ public class DemandeImpl implements DemandeService {
             colis.setType(TypeColis.valueOf(String.valueOf(c.type())));
             return colis;
         }).toList();
+
         demande.setColis(colisList);
 
         DemandeTransport saved = demandeRepo.save(demande);

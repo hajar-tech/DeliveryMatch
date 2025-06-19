@@ -1,5 +1,8 @@
 package com.deliveryMatch.backend.services.securityService;
 
+import com.deliveryMatch.backend.configuration.JwtUtil;
+import com.deliveryMatch.backend.dtos.LoginRequest;
+import com.deliveryMatch.backend.dtos.LoginResponse;
 import com.deliveryMatch.backend.dtos.RegisterRequest;
 import com.deliveryMatch.backend.modules.Admin;
 import com.deliveryMatch.backend.modules.Conducteur;
@@ -15,10 +18,12 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder , JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     public void registerUser(RegisterRequest registerRequest) {
@@ -41,6 +46,24 @@ public class AuthService {
         utilisateur.setPassword(passwordEncoder.encode(registerRequest.password()));
 
         userRepository.save(utilisateur);
+    }
+
+
+
+    public LoginResponse login(LoginRequest request){
+        Utilisateur utilisateur = userRepository.findByEmail(request.email())
+                .orElseThrow(()-> new RuntimeException("Email incorect !"));
+
+        if (!passwordEncoder.matches(request.password(), utilisateur.getPassword())) {
+            throw new RuntimeException("Mot de passe incorrect");
+        }
+
+        String token = jwtUtil.generateToken(utilisateur);
+        String role = utilisateur.getClass().getSimpleName().toUpperCase();
+
+        return new LoginResponse(token, utilisateur.getId(),role , utilisateur.getEmail());
+
+
     }
 
 }
