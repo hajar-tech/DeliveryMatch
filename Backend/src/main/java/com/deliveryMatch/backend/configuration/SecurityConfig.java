@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/annonces/**").permitAll()
+                        .requestMatchers("/api/demandeTransports/**").permitAll()
                 .anyRequest().authenticated())
                 .userDetailsService(userDetailsService)
                 .build();

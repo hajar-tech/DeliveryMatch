@@ -1,5 +1,7 @@
 package com.deliveryMatch.backend.controllers;
 
+import com.deliveryMatch.backend.dtos.LoginRequest;
+import com.deliveryMatch.backend.dtos.LoginResponse;
 import com.deliveryMatch.backend.dtos.RegisterRequest;
 import com.deliveryMatch.backend.services.securityService.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,11 @@ public class AuthController {
     public ResponseEntity<String> register (@RequestBody RegisterRequest registerRequest) {
         authService.registerUser(registerRequest);
         return ResponseEntity.ok("Inscription réussie !");
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
