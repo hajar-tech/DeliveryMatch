@@ -127,7 +127,22 @@ public class AnnonceImpl implements AnnonceService {
 
     }
 
+    @Override
+    public List<AnnonceTrajetDto> rechercherAnnonceTrajet(String destination, Date dateDepart, String typaMarchandise) {
+        List<AnnonceTrajet> annonces = annonceRepository.rechercherAnnoncesDisponibles(destination, dateDepart, typaMarchandise);
 
+        return annonces.stream().map(a -> new AnnonceTrajetDto(
+                a.getConducteur().getId(),
+                a.getLieuDepart(),
+                a.getEtapeIntermediaire(),
+                a.getDestinationFinale(),
+                a.getTypeMarchandise(),
+                a.getDimensionMaximales(),
+                a.getCapaciteDisponible(),
+                a.getDateDepart(),
+                a.getDateAnance()
+        )).toList();
+    }
 
 
 }

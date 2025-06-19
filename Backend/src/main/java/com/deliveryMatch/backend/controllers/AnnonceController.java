@@ -3,9 +3,11 @@ package com.deliveryMatch.backend.controllers;
 import com.deliveryMatch.backend.dtos.AnnonceTrajetDto;
 import com.deliveryMatch.backend.modules.AnnonceTrajet;
 import com.deliveryMatch.backend.services.implementationServices.AnnonceImpl;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,5 +46,12 @@ public class AnnonceController {
         annonceService.deleteAnnonceTrajet(id) ;
               return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping("/recherche")
+    public ResponseEntity<List<AnnonceTrajetDto>> rechercheAnnonces(@RequestParam (required = false) String destination,
+                                                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateDepart,
+                                                                    @RequestParam(required = false) String typeMarchandise){
+        return ResponseEntity.ok(annonceService.rechercherAnnonceTrajet(destination, dateDepart, typeMarchandise));
     }
 }

@@ -13,7 +13,9 @@ public record AnnonceTrajetDto (Long conducteurId,
                                 Double capaciteDisponible,
                                 Date dateDepart,
                                  Date dateAnance
-                                ){}
+                                ){
+
+}
 
 
 
