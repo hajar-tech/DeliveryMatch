@@ -10,7 +10,7 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   token: string;
-  id: number;
+  userId: number;
   role: string;
   email: string;
 }
@@ -41,8 +41,14 @@ export class AuthService {
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, data).pipe(
       tap((response) => {
+
+        console.log('🧾 Réponse reçue du backend :', response);
+        if (!response || !response.token || !response.userId) {
+          throw new Error('Réponse invalide du serveur');
+        }
+
         localStorage.setItem('token', response.token);
-        localStorage.setItem('id', response.id.toString());
+        localStorage.setItem('id', response.userId.toString());
         localStorage.setItem('role', response.role);
         localStorage.setItem('email', response.email);
       }),
@@ -52,12 +58,25 @@ export class AuthService {
 
 
 
+
   private manageErors(error: HttpErrorResponse) {
-    const message = error.error instanceof ErrorEvent
-      ? error.error.message
-      : error.error?.message || 'Erreur inconnue.';
-    return throwError(() => message);
+    console.error('Erreur HTTP:', error);
+
+    if (error.error instanceof ErrorEvent) {
+      return throwError(() => error.error.message);
+    }
+
+    if (typeof error.error === 'string') {
+      return throwError(() => error.error); // ex: "Email incorrect"
+    }
+
+    if (error.error && error.error.message) {
+      return throwError(() => error.error.message);
+    }
+
+    return throwError(() => 'Erreur inconnue.');
   }
+
 
 
 
