@@ -7,7 +7,7 @@ import com.deliveryMatch.backend.services.securityService.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -20,9 +20,17 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register (@RequestBody RegisterRequest registerRequest) {
-        authService.registerUser(registerRequest);
-        return ResponseEntity.ok("Inscription réussie !");
+
+        try {
+            authService.registerUser(registerRequest);
+            return ResponseEntity.ok("Utilisateur enregistré avec succès.");
+        }catch(Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Erreur lors de l'enregistrement : " + e.getMessage());
+        }
     }
+
 
 
     @PostMapping("/login")
