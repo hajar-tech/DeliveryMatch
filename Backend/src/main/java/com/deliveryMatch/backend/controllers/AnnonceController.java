@@ -54,4 +54,10 @@ public class AnnonceController {
                                                                     @RequestParam(required = false) String typeMarchandise){
         return ResponseEntity.ok(annonceService.rechercherAnnonceTrajet(destination, dateDepart, typeMarchandise));
     }
+
+    @GetMapping("/conducteur/{id}")
+    public ResponseEntity<List<AnnonceTrajetDto>> getAnnoncesByConducteur(@PathVariable Long id) {
+        return ResponseEntity.ok(annonceService.getAnnonceByConducteur(id));
+    }
+
 }

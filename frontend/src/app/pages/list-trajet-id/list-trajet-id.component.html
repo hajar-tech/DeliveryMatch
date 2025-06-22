@@ -1,0 +1,47 @@
+<div class="min-h-screen bg-green-100 py-10 px-4 sm:px-6 lg:px-8 mt-20 mb-20">
+  <div class="max-w-3xl mx-auto bg-white p-4 rounded-2xl shadow-lg">
+    <button routerLink="/conducteur" class="text-2xl font-bold text-gray-800 mb-6 text-center">Créer une annonce de trajet</button>
+    <!-- Formulaire conservé ici (inchangé) -->
+    <!-- ... -->
+  </div>
+
+  <!-- Tableau des annonces -->
+  <div class="max-w-7xl mx-auto mt-10">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Liste des annonces</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white rounded-xl shadow-md">
+        <thead class="bg-gradient-to-r from-blue-600 to-green-600 text-white">
+        <tr>
+          <th class="py-3 px-4 text-left">Départ</th>
+          <th class="py-3 px-4 text-left">Destination</th>
+          <th class="py-3 px-4 text-left">Type</th>
+          <th class="py-3 px-4 text-left">Dimensions</th>
+          <th class="py-3 px-4 text-left">Capacité</th>
+          <th class="py-3 px-4 text-left">Départ prévu</th>
+          <th class="py-3 px-4 text-left">Étapes</th>
+          <th class="py-3 px-4 text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let annonce of annonces" class="border-b hover:bg-green-50">
+          <td class="py-3 px-4">{{ annonce.lieuDepart }}</td>
+          <td class="py-3 px-4">{{ annonce.destinationFinale }}</td>
+          <td class="py-3 px-4">{{ annonce.typeMarchandise }}</td>
+          <td class="py-3 px-4">{{ annonce.dimensionMaximales }}</td>
+          <td class="py-3 px-4">{{ annonce.capaciteDisponible }} kg</td>
+          <td class="py-3 px-4">{{ annonce.dateDepart | date }}</td>
+          <td class="py-3 px-4">{{ annonce.etapeIntermediaire?.join(', ') || 'Aucune' }}</td>
+          <td class="py-3 px-4 text-center space-x-2">
+            <button
+                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Commandes</button>
+            <button
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Modifier</button>
+            <button
+                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Supprimer</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

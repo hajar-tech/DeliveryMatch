@@ -36,12 +36,12 @@ export class LoginComponent {
         const role = localStorage.getItem('role');
 
         // Redirection selon le rôle
-        if (role === 'Admin') {
+        if (role === 'ADMIN') {
           this.router.navigate(['/admin/dashboard']);
-        } else if (role === 'Expediteur') {
-          this.router.navigate(['/expediteur']);
+        } else if (role === 'EXPEDITEUR') {
+          this.router.navigate(['/list-trajet']);
         } else {
-          this.router.navigate(['/conducteur']);
+          this.router.navigate(['/trajrtId']);
         }
       },
       error: (error) => {

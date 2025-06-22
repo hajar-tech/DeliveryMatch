@@ -4,13 +4,14 @@ import {CommonModule, DatePipe, NgForOf} from '@angular/common';
 import { AnnonceService, AnnonceTrajetDto } from '../../core/services/annonce/annonce.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
 
 type TypeColis = 'PETIT' | 'MOYEN' | 'GRAND' | 'FRAGILE' | 'AUTRE';
 
 @Component({
   selector: 'app-conducteur',
   standalone: true,
-  imports: [FormsModule, NgForOf, DatePipe, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, NgForOf, CommonModule, ReactiveFormsModule],
   templateUrl: './conducteur.component.html',
   styleUrls: ['./conducteur.component.css']
 })
@@ -18,7 +19,7 @@ export class ConducteurComponent {
   annonceForm: FormGroup;
   typeColisList: TypeColis[] = ['PETIT', 'MOYEN', 'GRAND', 'FRAGILE', 'AUTRE'];
 
-  constructor(private fb: FormBuilder, private annonceService: AnnonceService) {
+  constructor(private fb: FormBuilder, private annonceService: AnnonceService , private router:Router) {
     this.annonceForm = this.fb.group({
       typeMarchandise: ['', Validators.required],
       dimensionMaximales: ['', Validators.required],
@@ -47,6 +48,8 @@ export class ConducteurComponent {
           console.log(' Annonce créée avec succès', res);
           alert('Annonce créée avec succès !');
           this.annonceForm.reset();
+          this.router.navigate(['/trajrtId']);
+
         },
         error: (err) => {
           console.error(' Erreur lors de la création de l\'annonce', err);

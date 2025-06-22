@@ -38,4 +38,13 @@ export class AnnonceService {
       })
     );
   }
+
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/all`);
+  }
+
+
+  getAnnoncesByConducteur(idConducteur: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/conducteur/${idConducteur}`);
+  }
 }

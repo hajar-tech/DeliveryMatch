@@ -1,0 +1,24 @@
+<button routerLink="/conducteur" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition m-4">
+  créer Trajet
+</button>
+
+<div class="max-w-6xl mx-auto mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-6">
+  <article *ngFor="let annonce of annonces" class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between">
+    <div class="space-y-2">
+      <h3 class="text-lg font-bold text-gray-700">{{ annonce.lieuDepart }} ➔ {{ annonce.destinationFinale }}</h3>
+      <p class="text-sm text-gray-600">Type : <span class="font-medium">{{ annonce.typeMarchandise }}</span></p>
+      <p class="text-sm text-gray-600">Dimensions : <span class="font-medium">{{ annonce.dimensionMaximales }}</span></p>
+      <p class="text-sm text-gray-600">Capacité : <span class="font-medium">{{ annonce.capaciteDisponible }} kg</span></p>
+      <p class="text-sm text-gray-600">Départ : <span class="font-medium">{{ annonce.dateDepart | date }}</span></p>
+      <p class="text-sm text-gray-600">Étapes : <span class="font-medium">{{ annonce.etapeIntermediaire?.join(', ') || 'Aucune' }}</span></p>
+    </div>
+
+    <div class="flex justify-between items-center mt-6">
+      <button
+              class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">demander</button>
+      </div>
+  </article>
+</div>
+
+
+
