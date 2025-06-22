@@ -42,4 +42,21 @@ export class ListTrajetIdComponent implements OnInit{
     });
   }
 
+
+  supprimerAnnonce(annonce: any): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')) {
+      this.annonceService.supprimerAnnonce(annonce.id).subscribe({
+        next: () => {
+          alert('Annonce supprimée avec succès');
+          this.chargerAnnoncesConducteur(); // Recharge la liste
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression', err);
+          alert('Erreur lors de la suppression');
+        }
+      });
+    }
+  }
+
+
 }
