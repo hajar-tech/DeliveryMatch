@@ -1,0 +1,72 @@
+<div class="min-h-screen bg-green-100 py-10 px-4 sm:px-6 lg:px-8 mt-20 mb-20">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Créer une annonce de trajet</h2>
+
+    <form [formGroup]="annonceForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Type de marchandise -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Type de marchandise</label>
+        <select formControlName="typeMarchandise"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          <option value="">-- Sélectionner --</option>
+          <option *ngFor="let type of typeColisList" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <!-- Dimension -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Dimensions maximales</label>
+        <input type="text" formControlName="dimensionMaximales"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+               placeholder="Ex : 100x80x50 cm" />
+      </div>
+
+      <!-- Capacité -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Capacité disponible (kg)</label>
+        <input type="number" formControlName="capaciteDisponible"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+               placeholder="Ex : 130" />
+      </div>
+
+      <!-- Lieu de départ -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Lieu de départ</label>
+        <input type="text" formControlName="lieuDepart"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+               placeholder="Ville de départ" />
+      </div>
+
+      <!-- Étapes intermédiaires -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Étapes intermédiaires</label>
+        <input type="text" formControlName="etapeIntermediaire"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+               placeholder="Ex : Benguerir, Settat" />
+      </div>
+
+      <!-- Destination finale -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Destination finale</label>
+        <input type="text" formControlName="destinationFinale"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+               placeholder="Ville d’arrivée" />
+      </div>
+
+      <!-- Date de départ -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Date de départ</label>
+        <input type="date" formControlName="dateDepart"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" />
+      </div>
+
+      <!-- Bouton submit -->
+      <div class="text-center">
+        <button type="submit"
+                class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-green-600 text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition duration-200">
+          Créer l'annonce
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

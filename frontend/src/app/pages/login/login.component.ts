@@ -39,9 +39,9 @@ export class LoginComponent {
         if (role === 'Admin') {
           this.router.navigate(['/admin/dashboard']);
         } else if (role === 'Expediteur') {
-          this.router.navigate(['/expediteur/home']);
+          this.router.navigate(['/expediteur']);
         } else {
-          this.router.navigate(['/conducteur/home']);
+          this.router.navigate(['/conducteur']);
         }
       },
       error: (error) => {
