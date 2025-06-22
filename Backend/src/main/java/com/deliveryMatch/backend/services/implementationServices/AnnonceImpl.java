@@ -72,12 +72,6 @@ public class AnnonceImpl implements AnnonceService {
         annonceTrajet.setDateAnance(new Date());
         annonceTrajet.setLieuDepart(annonceTrajetDto.lieuDepart());
 
-//        //vérifier si je veux vérifier
-//        if (annonceTrajetDto.conducteurId() != null) {
-//            Conducteur conducteur = (Conducteur) userRepository.findById(annonceTrajetDto.conducteurId())
-//                    .orElseThrow(() -> new RuntimeException("Conducteur non trouvé"));
-//            annonceTrajet.setConducteur(conducteur);
-//        }
         annonceRepository.save(annonceTrajet);
 
       return annonceTrajetDto;
@@ -89,6 +83,7 @@ public class AnnonceImpl implements AnnonceService {
                 .orElseThrow(()-> new RuntimeException("annonce introuvable !! "));
 
         return new AnnonceTrajetDto(
+                annonceTrajet.getId(),
                 annonceTrajet.getConducteur().getId(),
                 annonceTrajet.getLieuDepart(),
                 annonceTrajet.getEtapeIntermediaire(),
@@ -106,7 +101,8 @@ public class AnnonceImpl implements AnnonceService {
     public List<AnnonceTrajetDto> getAllAnnonceTrajet() {
         return annonceRepository.findAll().stream()
                 .map(annonceTrajet -> new AnnonceTrajetDto(
-                    annonceTrajet.getConducteur().getId(),
+                        annonceTrajet.getId(),
+                        annonceTrajet.getConducteur().getId(),
                     annonceTrajet.getLieuDepart(),
                     annonceTrajet.getEtapeIntermediaire(),
                     annonceTrajet.getDestinationFinale(),
@@ -132,6 +128,7 @@ public class AnnonceImpl implements AnnonceService {
         List<AnnonceTrajet> annonces = annonceRepository.rechercherAnnoncesDisponibles(destination, dateDepart, typaMarchandise);
 
         return annonces.stream().map(a -> new AnnonceTrajetDto(
+                a.getId(),
                 a.getConducteur().getId(),
                 a.getLieuDepart(),
                 a.getEtapeIntermediaire(),
@@ -148,6 +145,7 @@ public class AnnonceImpl implements AnnonceService {
     public List<AnnonceTrajetDto> getAnnonceByConducteur(Long conducteurId) {
         return annonceRepository.findByConducteurId(conducteurId).stream()
                 .map(annonce -> new AnnonceTrajetDto(
+                        annonce.getId(),
                         annonce.getConducteur().getId(),
                         annonce.getLieuDepart(),
                         annonce.getEtapeIntermediaire(),

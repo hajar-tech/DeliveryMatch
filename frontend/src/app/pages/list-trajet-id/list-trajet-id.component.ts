@@ -2,23 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {AnnonceService} from '../../core/services/annonce/annonce.service';
 import {DatePipe, NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-list-trajet-id',
   imports: [
     DatePipe,
     NgForOf,
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   templateUrl: './list-trajet-id.component.html',
   styleUrl: './list-trajet-id.component.css'
 })
 export class ListTrajetIdComponent implements OnInit{
 
-
-
   constructor(private annonceService : AnnonceService) {
   }
+
   annonces: any[] = [];
   ngOnInit(): void {
     this.chargerAnnoncesConducteur();
@@ -57,6 +58,5 @@ export class ListTrajetIdComponent implements OnInit{
       });
     }
   }
-
 
 }
