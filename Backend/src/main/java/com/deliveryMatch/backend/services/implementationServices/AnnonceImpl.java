@@ -145,4 +145,21 @@ public class AnnonceImpl implements AnnonceService {
     }
 
 
+    public List<AnnonceTrajetDto> getAnnonceByConducteur(Long conducteurId) {
+        return annonceRepository.findByConducteurId(conducteurId).stream()
+                .map(annonce -> new AnnonceTrajetDto(
+                        annonce.getConducteur().getId(),
+                        annonce.getLieuDepart(),
+                        annonce.getEtapeIntermediaire(),
+                        annonce.getDestinationFinale(),
+                        annonce.getTypeMarchandise(),
+                        annonce.getDimensionMaximales(),
+                        annonce.getCapaciteDisponible(),
+                        annonce.getDateDepart(),
+                        annonce.getDateAnance()
+                ))
+                .toList();
+    }
+
+
 }

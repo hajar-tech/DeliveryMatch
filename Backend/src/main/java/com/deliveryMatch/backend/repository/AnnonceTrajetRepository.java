@@ -26,5 +26,8 @@ public interface AnnonceTrajetRepository extends JpaRepository<AnnonceTrajet, Lo
             @Param("typeMarchandise") String typeMarchandise
     );
 
+    List<AnnonceTrajet> findByConducteurId(Long conducteurId);
+
+
 
 }
