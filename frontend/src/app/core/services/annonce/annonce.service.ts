@@ -47,4 +47,23 @@ export class AnnonceService {
   getAnnoncesByConducteur(idConducteur: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/conducteur/${idConducteur}`);
   }
+
+
+  supprimerAnnonce(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  modifierAnnonce(id: number, data: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.put(`${this.apiUrl}/${id}`, data, { headers });
+  }
+
+
 }

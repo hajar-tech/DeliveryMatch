@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 
-public record AnnonceTrajetDto (Long conducteurId,
+public record AnnonceTrajetDto (
+        Long id,
+        Long conducteurId,
                                 String lieuDepart,
                                 List<String> etapeIntermediaire,
                                 String destinationFinale,

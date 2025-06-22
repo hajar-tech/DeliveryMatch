@@ -2,23 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {AnnonceService} from '../../core/services/annonce/annonce.service';
 import {DatePipe, NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-list-trajet-id',
   imports: [
     DatePipe,
     NgForOf,
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   templateUrl: './list-trajet-id.component.html',
   styleUrl: './list-trajet-id.component.css'
 })
 export class ListTrajetIdComponent implements OnInit{
 
-
-
   constructor(private annonceService : AnnonceService) {
   }
+
   annonces: any[] = [];
   ngOnInit(): void {
     this.chargerAnnoncesConducteur();
@@ -40,6 +41,22 @@ export class ListTrajetIdComponent implements OnInit{
         console.error('Erreur chargement annonces du conducteur', err);
       }
     });
+  }
+
+
+  supprimerAnnonce(annonce: any): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')) {
+      this.annonceService.supprimerAnnonce(annonce.id).subscribe({
+        next: () => {
+          alert('Annonce supprimée avec succès');
+          this.chargerAnnoncesConducteur(); // Recharge la liste
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression', err);
+          alert('Erreur lors de la suppression');
+        }
+      });
+    }
   }
 
 }
